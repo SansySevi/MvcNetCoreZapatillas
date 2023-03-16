@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MvcNetCoreZapatillas.Models.Zapatilla>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1>Zapatillas</h1>
+
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Zapatillas" asp-action="Details" asp-route-idproducto="@item.IdProducto" class="btn btn-success"> Detalles @item.Nombre</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

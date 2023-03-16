@@ -1,0 +1,94 @@
+﻿@model List<ImagenZapatilla>
+
+@{
+    int numeroregistros = (int)ViewData["REGISTROS"];
+    int numeropagina = 1;
+    int idproducto = (int)ViewData["IDPRODUCTO"];
+    int posicion = 1;
+}
+
+<ul class="list-group list-group-horizontal">
+    @for (int i = 1; i <= numeroregistros; i ++)
+    {
+        <li class="list-group-item list-group-item-success">
+            <a asp-controller="Paginacion"
+           asp-action="PersonajesSerie"
+           asp-route-posicion="@i"
+           asp-route-idserie="@idproducto">
+                Página @numeropagina
+            </a>
+        </li>
+        numeropagina += 1;
+    }
+</ul>
+
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@item.Imagen" style="height:150px" />
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@*@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#btnPrimero").click(function() {
+                $("#contenido").load("/Paginacion/_DetalleImagen?posicion=@posicion&idproducto=@idproducto");
+            })
+
+            $("#btnAnterior").click(function() {
+                let posic = @posicion - 1;
+                $("#contenido").load("/Paginacion/_DetailsImagen?posicion="
+                + posic + "&idproducto=@idproducto");
+            })
+
+            $("#BtnSiguiente").click(function() {
+               let posic = @posicion + 1;
+                $("#contenido").load("/Paginacion/_DetailsImagen?posicion="
+                + posic  + "&idproducto=@idproducto");
+            })
+
+            $("#btnUltimo").click(function() {
+                $("#contenido").load("/Paginacion/_DetailsImagen?posicion=@numeroregistros&idproducto=@idproducto");
+            })
+
+             $("#contenido").load("/Paginacion/_DetalleImagen?posicion=@posicion");
+
+        })
+    </script>
+ }
+
+    <h5>Imagen @posicion de @numeroregistros</h5>
+
+    <ul class="list-group list-group-horizontal">
+        <li class="list-group-item list-group-item-success">
+            <button id="btnPrimero" class="btn btn-outline-info">
+                Primero
+            </button>
+            <button id="btnAnterior" class="btn btn-outline-info">
+                Anterior
+            </button>
+            <button id="BtnSiguiente" class="btn btn-outline-info">
+                Siguiente
+            </button>
+            <button id="btnUltimo" class="btn btn-outline-info">
+                Ultimo
+            </button>
+        </li>
+    </ul>
+
+    <div id="contenido"></div>
+
+    <a asp-controller="Zapatillas" asp-action="_DetalleImagen" asp-route-posicion="@posicion" asp-route-idproducto="@idproducto">IMAGEN</a>
+
+
+*@
